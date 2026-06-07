@@ -17,7 +17,7 @@ If HQ is unavailable (no cookies or stream not accessible), the tool automatical
 - **Playlist batch downloading** from a simple `.txt` URL list
 - **Single track mode** via direct URL input
 - **URL sanitization** - automatically normalizes country-coded domains and strips playlist tags
-- **Anti-bot protection** — randomized delay between playlist track downloads
+- **Anti-bot protection** - randomized delay between playlist track downloads
 - **Cancel on relaunch** - double-clicking the app while a download is running cancels it
 - **Auto folder management** - creates and cleans up `[HQ-256k]` and `[Fallback-AIFF]` subfolders
 - **Automatic PO token framework installation** - required for authenticated HQ streams, handled by the installer
@@ -83,8 +83,8 @@ brew install yt-dlp ffmpeg
 6. Select *Playlist* and point it to your `.txt` file
 
 Downloaded files are saved under your install folder in:
-- `yt-dlp/[folder name]/[HQ-256k]/` — 256kbps AAC `.m4a` with metadata (requires valid cookies)
-- `yt-dlp/[folder name]/[Fallback-AIFF]/` — AIFF with cover art and metadata
+- `yt-dlp/[folder name]/[HQ-256k]/` - 256kbps AAC `.m4a` with metadata (requires valid cookies)
+- `yt-dlp/[folder name]/[Fallback-AIFF]/` - AIFF with cover art and metadata
 
 ---
 
@@ -92,7 +92,7 @@ Downloaded files are saved under your install folder in:
 
 See `README.txt` inside your install folder for detailed troubleshooting steps including cookie setup, PO token configuration, and manual rustypipe-botguard installation.
 
-If you are stuck and nothing seems to work, feel free to open an issue on this repository or reach out directly — happy to help.
+If you are stuck and nothing seems to work, feel free to open an issue on this repository or reach out directly - happy to help.
 
 ---
 
