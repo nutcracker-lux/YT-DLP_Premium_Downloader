@@ -30,7 +30,7 @@ If HQ is unavailable (no cookies or stream not accessible), the tool automatical
 - macOS (Apple Silicon natively supported - see note below for other architectures)
 - [Homebrew](https://brew.sh) with `yt-dlp` and `ffmpeg` installed
 - Python 3.12+
-- A YouTube Music Premium account
+- A YouTube Music Premium account for original 141 files
 
 Install yt-dlp and ffmpeg via Homebrew if you haven't already:
 ```bash
@@ -99,7 +99,7 @@ If you are stuck and nothing seems to work, feel free to open an issue on this r
 ## Notes
 
 - `cookies.txt` needs to be re-exported roughly every 24 hours
-- Folder names with spaces are not supported — use underscores or no separator, e.g. `YouTubeDownloader` or `YouTube_Downloader`
+- Folder names with spaces are not supported - use underscores or no separator, e.g. `YouTubeDownloader` or `YouTube_Downloader`
 - Apple Silicon is natively supported out of the box; other architectures require a manual binary swap
 - To cancel an active download, simply double-click the app again
 
