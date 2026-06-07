@@ -112,5 +112,3 @@ BTC donations welcome: `15hMZCUhPZs9tMAoVUR3YY4ZLxAKebo3wU` (BTC network)
 *Thanks for downloading. -Nutcracker :)*
 
 ---
-
-Save this as `README.md` in your repository root. Want any tweaks?
