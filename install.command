@@ -27,8 +27,9 @@ INSTALLER_DIR="$(cd "$(dirname "$0")" && pwd)"
 # SECTION 3: USER INPUT - ASK FOR INSTALLATION PATH
 # ============================================================================
 # Display a warning that the app must be installed in the user's home directory
-echo "⚠️  INSTALL APP INTO FOLDER IN USER HOME DIRECTORY ⚠️"
-echo "Example: /Users/$(whoami)/YouTube Downloader"
+echo "⚠️  INSTALL APP INTO FOLDER IN USER HOME DIRECTORY ($(whoami))  ⚠️"
+echo "Example: /Users/$(whoami)/YouTubeDownloader"
+echo "You can copy the path above and change the last folder name to whatever you like"
 
 # Prompt the user to enter the exact folder path where they want to install
 echo -n "Enter the full install folder path: "
@@ -212,17 +213,18 @@ EOF
 README_FILE="$INSTALL_DIR/README.txt"
 cat > "$README_FILE" <<'EOF'
 
-######################################################################################
-####################/////////////////////////////////////////////#####################
-####################\\WELCOME TO PREMIUM YT-DLP DOWNLOADER TOOL\\#####################
-####################/////////////////////////////////////////////#####################
-######################################################################################
+#####################################################################################
+###///////////////////////////////////////////////////////////////////////////////###
+###//⡇⢸ ⣏⡉ ⡇  ⡎⠑ ⡎⢱ ⡷⢾ ⣏⡉   ⢹⠁ ⡎⢱   ⢇⢸ ⢹⠁    ⡏⢱ ⡇  ⣏⡱   ⣏⡱ ⣏⡱ ⣏⡉ ⡷⢾ ⡇ ⡇⢸ ⡷⢾//###
+###\\⠟⠻ ⠧⠤ ⠧⠤ ⠣⠔ ⠣⠜ ⠇⠸ ⠧⠤   ⠸  ⠣⠜    ⠇ ⠸  ⠉⠉ ⠧⠜ ⠧⠤ ⠇    ⠇  ⠇⠱ ⠧⠤ ⠇⠸ ⠇ ⠣⠜ ⠇⠸\\###
+###///////////////////////////////////////////////////////////////////////////////###
+#####################################################################################
 
 
 >>>>>>>>>>> The following instructions are meant for you to troubleshoot <<<<<<<<<
 >>>>>>>>>>> and test when anything does not work as it should. You might <<<<<<<<<
 >>>>>>>>>>>  need to run "sudo " command before some of the fixes below. <<<<<<<<<
->>>>>>>>>>>   If you installed everything, head down to next section!    <<<<<<<<<
+>>>>>>>>>>>>IF YOU INSTALLED EVERYTHING, YOU CAN HEAD TO THE NEXT SECTION<<<<<<<<<
 
 // 1. First off, for this tool to perfectly work, you need to install the extension I
 // provided in the installation. If you missed it here you go:
@@ -243,7 +245,7 @@ cat > "$README_FILE" <<'EOF'
 
 
 // 4.If not installed, go to official website and install, run the command ABOVE again
-// and then execute the following 2 command in terminal:
+// and then execute the following 2 commands in terminal:
 
 
 	bash "/Applications/Python 3.12/Install Certificates.command"
@@ -286,22 +288,40 @@ cat > "$README_FILE" <<'EOF'
 // If error present, this is 100% the issue!
 
 
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
+// If for some reason a file won't downlaod in 141 format, you can pass the following
+// command in terminal to check if the file format even exists...
+
+// First cd into your directory where your cookie file is stored (root):
+
+
+  cd $DIR$
+
+
+// Then run the following command by replacing $URL$ with the URL of the track you want
+// and replace $COOKIE_FILE$ with the name of your cookie file (probably "cookies.txt"):
+
+
+  yt-dlp --cookies "$COOKIE_FILE$" -F "$URL$"
+
+
+// Hit enter and look in the formats list for "141". If it is not there, the file 
+// format does not exist for that track.
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------          
+----------------------------------------------------------------------------------------                                                                              
+-----▄▄▄▄▄▄▄▄--▄▄----▄▄--▄▄▄▄▄▄▄▄----▄▄▄▄----▄▄▄▄▄▄-----▄▄▄▄▄▄------▄▄-----▄▄----------- 
+-----▀▀▀██▀▀▀--██----██--▀▀▀██▀▀▀---██▀▀██---██▀▀▀▀██---▀▀██▀▀-----████----██-----------
+--------██-----██----██-----██-----██----██--██----██-----██-------████----██----------- 
+--------██-----██----██-----██-----██----██--███████------██------██--██---██----------- 
+--------██-----██----██-----██-----██----██--██--▀██▄-----██------██████---██----------- 
+--------██-----▀██▄▄██▀-----██------██▄▄██---██----██---▄▄██▄▄---▄██--██▄--██▄▄▄▄▄▄----- 
+--------▀▀-------▀▀▀▀-------▀▀-------▀▀▀▀----▀▀----▀▀▀--▀▀▀▀▀▀---▀▀----▀▀--▀▀▀▀▀▀▀▀-----
+----------------------------------------------------------------------------------------                                                                               
+----------------------------------------------------------------------------------------                                                                            
+----------------------------------------------------------------------------------------
+
 
 
 HOW TO USE THIS TOOL:
@@ -330,14 +350,15 @@ HOW TO USE THIS TOOL:
 	to the very bottom of the playlist and make sure the last track is loaded
 
 
-5. Press F12 or right click anywhere on the website, click "Inspect" and go to the 	"Console" tab
+5. Press F12 or right click anywhere on the website, click "Inspect" and go to 
+  the 	"Console" tab
 
 
-6. Now paste what you copied from the developer tool txt file. You might need to 
-	enter "allow pasting" before being able to
+6. Now paste what you copied from the developer tool txt file. Hit Enter. You might need to 
+	type "allow pasting" before being able to paste the command
 
 
-7. Copy all links that get returned as they are. Make sure you don't copy any other 
+7. Copy all links that get listed as they are. Make sure you don't copy any other 
 	characters!
 
 
@@ -348,10 +369,12 @@ HOW TO USE THIS TOOL:
 
 
 10. Paste your links and MAKE SURE TO HIT ENTER AFTER THE LAST ONE so the script ends
-	one line below your last URL
+	one line below your last URL! For example:
+    https://music.youtube.com/watch?v=example1
+    ---there needs to be an empty line here after the last URL---    
 
 
-11. Save the file anywhere on your pc.
+11. Save the file anywhere on your pc and launch the app
 
 
 12. Chose whether you want to create a new folder or chose an existing one
@@ -359,20 +382,25 @@ HOW TO USE THIS TOOL:
 	not possible yet)
 
 
-13. (Only for create new folder) Name your folder
+13. (Only for "create new folder") Name your folder
 
 
-14. (Only for single track) Enter URL (preferably music.youtube.com URL)
+14. (Only for playlist) Then chose the file with the URLs you created in step 10
 
 
-15. Head to the root folder and find your high quality tracks in the [HQ 256k] folder
+15. (Only for single track) Enter URL (preferably music.youtube.com URL)
+
+
+16. Head to the root folder and find your high quality tracks in the [HQ 256k] folder
 	and your lower quality AIFF files in the [Fallback AIFF] folder
 
 
-16. If you want to cancel a download you accidentally started, double click/run the 
-	app again and your download will cancel
+17. If you want to cancel a download you accidentally started, double click/run the 
+	app again and your download will cancel when clicking on OK in the pop-up window
+  that follows. 
 
-17. Enjoy :)
+
+18. Enjoy :)
 
 
 -Nutcracker

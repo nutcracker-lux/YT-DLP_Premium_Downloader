@@ -60,7 +60,8 @@ cancel_existing_download() {
         local existing_pid
         existing_pid=$(cat "$PID_FILE" 2>/dev/null)
         if is_pid_running "$existing_pid"; then
-            osascript -e 'display dialog "A download is already running. Clicking the app again will cancel it." buttons {"OK"} default button "OK"' 2>/dev/null
+            osascript -e 'display dialog "A download is already running...
+            Clicking OK will cancel it." buttons {"OK"} default button "OK"' 2>/dev/null
             kill -TERM "$existing_pid" 2>/dev/null
             kill -TERM "-$existing_pid" 2>/dev/null
             sleep 1
@@ -167,6 +168,9 @@ download_track() {
     echo "[Task] Downloading: $TITLE
 " >> "$LOG_FILE"
 
+# Sanitize title for filesystem (replace problematic characters with underscores)
+TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
+
     # A. Attempt HQ (141) download using authenticated cookies
     if [ -f "$COOKIE_FILE" ] && [ -s "$COOKIE_FILE" ]; then
         echo "[Task] Cookies detected. Attempting HQ (141) download.
@@ -214,7 +218,9 @@ download_track() {
     fi
     
     # Convert resulting wav file to AIFF with metadata/cover art
-    /opt/homebrew/bin/ffmpeg -i "$FALLBACK_DIR/$TITLE.wav" -i "$FALLBACK_DIR/$TITLE.jpg" \
+    WAV_FILE=$(find "$FALLBACK_DIR" -maxdepth 1 -name "*.wav" | head -n 1)
+    JPG_FILE=$(find "$FALLBACK_DIR" -maxdepth 1 -name "*.jpg" | head -n 1)
+    /opt/homebrew/bin/ffmpeg -i "$WAV_FILE" -i "$JPG_FILE" \
       -map 0:a -map 1:v \
       -c:a pcm_s16be \
       -c:v mjpeg \
@@ -226,13 +232,13 @@ download_track() {
     if [ $? -ne 0 ]; then
       echo "[ERROR] AIFF conversion failed for $TITLE.
 " >> "$LOG_FILE"
-      rm -f "$FALLBACK_DIR/$TITLE.wav" "$FALLBACK_DIR/$TITLE.jpg"
+      rm -f "$WAV_FILE" "$JPG_FILE"
       ERROR_SUMMARY+="\n[ERROR] No URLs have been detected. Could not proceed to download!"
       return 1
     fi
     
     # Clean up temporary files
-    rm "$FALLBACK_DIR/$TITLE.wav" "$FALLBACK_DIR/$TITLE.jpg"
+    rm -f "$WAV_FILE" "$JPG_FILE"
     echo "[Success] Downloaded and converted $TITLE to AIFF.
 " >> "$LOG_FILE"
     ERROR_SUMMARY+="\n[!] $TITLE -> Fallback to AIFF"

@@ -33,6 +33,12 @@ If HQ is unavailable (no cookies or stream not accessible), the tool automatical
 - A YouTube Music Premium account for original 141 files
 
 Install yt-dlp and ffmpeg via Homebrew if you haven't already:
+
+1. Hommebrew
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+2. yt-dlp + ffmpeg
 ```bash
 brew install yt-dlp ffmpeg
 ```
