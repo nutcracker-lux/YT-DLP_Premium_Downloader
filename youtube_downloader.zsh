@@ -54,6 +54,7 @@ is_pid_running() {
     [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null
 }
 
+# This function checks for an existing PID file and attempts to cancel the running process if found. It also handles the case where the PID file exists but the process is not running.
 cancel_existing_download() {
     if [ -f "$PID_FILE" ]; then
         local existing_pid
