@@ -2,7 +2,7 @@
 
 A macOS tool primarily built for **YouTube Music Premium** users who want to download their music in the highest available quality. By authenticating with your Premium account cookies, the tool unlocks format 141 — a 256kbps AAC stream in `.m4a` format, complete with embedded metadata and cover art. Downloads are verified to work with Pioneer CDJ equipment including all models back to the **CDJ-2000 NXS (Nexus 1)**, making them fully compatible with USB playback on professional DJ setups. The audio is lossless in terms of the source stream quality and carries proper ID3 tags, making it a solid choice for anyone who cares about audio fidelity, archiving, or professional playback.
 
-If HQ is unavailable (no cookies or stream not accessible), the tool automatically falls back to an **AIFF pipeline** — converting the best available WebM audio to AIFF with embedded cover art and metadata via ffmpeg.
+If HQ is unavailable (no cookies or stream not accessible), the tool automatically falls back to an **AIFF pipeline**, converting the best available WebM audio to AIFF with embedded cover art and metadata via ffmpeg.
 
 > ⚠️ Read `README.txt` **before and after installation** for full guidance on setup, usage, and troubleshooting.
 
@@ -12,22 +12,22 @@ If HQ is unavailable (no cookies or stream not accessible), the tool automatical
 
 - **HQ 256kbps AAC downloads** in `.m4a` format via YouTube Music Premium cookies (format 141)
 - **Embedded metadata and cover art** on all downloaded files
-- **CDJ-compatible bitrate and format** — tested back to CDJ-2000 NXS models
+- **CDJ-compatible bitrate and format** - tested back to CDJ-2000 NXS models
 - **AIFF fallback pipeline** with cover art and metadata if HQ is unavailable
 - **Playlist batch downloading** from a simple `.txt` URL list
 - **Single track mode** via direct URL input
-- **URL sanitization** — automatically normalizes country-coded domains and strips playlist tags
+- **URL sanitization** - automatically normalizes country-coded domains and strips playlist tags
 - **Anti-bot protection** — randomized delay between playlist track downloads
-- **Cancel on relaunch** — double-clicking the app while a download is running cancels it
-- **Auto folder management** — creates and cleans up `[HQ-256k]` and `[Fallback-AIFF]` subfolders
-- **Automatic PO token framework installation** — required for authenticated HQ streams, handled by the installer
+- **Cancel on relaunch** - double-clicking the app while a download is running cancels it
+- **Auto folder management** - creates and cleans up `[HQ-256k]` and `[Fallback-AIFF]` subfolders
+- **Automatic PO token framework installation** - required for authenticated HQ streams, handled by the installer
 - **Session log file** generated after every run for easy troubleshooting
 
 ---
 
 ## Requirements
 
-- macOS (Apple Silicon natively supported — see note below for other architectures)
+- macOS (Apple Silicon natively supported - see note below for other architectures)
 - [Homebrew](https://brew.sh) with `yt-dlp` and `ffmpeg` installed
 - Python 3.12+
 - A YouTube Music Premium account
@@ -51,7 +51,7 @@ brew install yt-dlp ffmpeg
    - Right-click `install.command` in Finder
    - Click **Open**
    - A dialog will appear saying it is from an unidentified developer — click **Open** anyway
-   - If no Open option appears, go to **System Settings → Privacy & Security**, scroll down and you will see a message about `install.command` being blocked — click **Open Anyway**
+   - If no Open option appears, go to **System Settings → Privacy & Security**, scroll down and you will see a message about `install.command` being blocked - click **Open Anyway**
 
 3. Terminal will open and guide you through the setup. When prompted for an install path, enter a path with **no spaces in the folder name**, for example:
 ```
