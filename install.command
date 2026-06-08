@@ -441,13 +441,13 @@ else
   echo "osascript compiler not found. AppleScript app not built."
 fi
 
-# Copy custom icon into the compiled app bundle if icon file exists
 if [ -f "$INSTALLER_DIR/YT-DLP_Premium.icns" ]; then
   cp -f "$INSTALLER_DIR/YT-DLP_Premium.icns" "$INSTALL_DIR/$APP_NAME/Contents/Resources/droplet.icns"
+  cp -f "$INSTALLER_DIR/YT-DLP_Premium.icns" "$INSTALL_DIR/$APP_NAME/Contents/Resources/applet.icns"
   touch "$INSTALL_DIR/$APP_NAME"
   echo "Custom icon applied to app."
 else
-  echo "No YT-DLP_Premium.icns found in installer directory. Using default icon."
+  echo "No icon file found in installer directory. Using default icon."
 fi
 
 # SECTION 13A: CREATE COPY LINKS INSTRUCTION FILE
