@@ -162,20 +162,21 @@ download_track() {
     local HQ_DIR="$2"
     local FALLBACK_DIR="$3"
     
+    # Detect ffmpeg location dynamically to support both Apple Silicon and Intel Macs
+    FFMPEG_BIN=$(command -v ffmpeg 2>/dev/null || echo "/opt/homebrew/bin/ffmpeg")
+
     # Extract track title for logging
-    # MODIFIED: Added --no-playlist to ensure consistency
     TITLE=$(yt-dlp --get-title --no-playlist "$URL" 2>/dev/null || echo "Unknown_Track")
     echo "[Task] Downloading: $TITLE
 " >> "$LOG_FILE"
 
-# Sanitize title for filesystem (replace problematic characters with underscores)
-TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
+    # Sanitize title for filesystem (replace problematic characters with underscores)
+    TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
 
     # A. Attempt HQ (141) download using authenticated cookies
     if [ -f "$COOKIE_FILE" ] && [ -s "$COOKIE_FILE" ]; then
         echo "[Task] Cookies detected. Attempting HQ (141) download.
 " >> "$LOG_FILE"
-        # MODIFIED: Added --no-playlist to prevent playlist container interference
         yt-dlp --cookies "$COOKIE_FILE" --no-playlist \
           --extractor-args "youtube:player_client=mweb;formats=missing_pot" \
           -f "141" \
@@ -184,7 +185,6 @@ TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
           -o "$HQ_DIR/%(title)s.%(ext)s" \
           "$URL" >> "$LOG_FILE" 2>&1
         
-        # Check if the HQ download was successful
         if [ $? -eq 0 ]; then
             echo "[Success] Downloaded HQ (141) for $TITLE.
 " >> "$LOG_FILE"
@@ -201,8 +201,7 @@ TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
     # B. AIFF Fallback Pipeline (if 141 is unavailable or cookies missing)
     echo "[Task] Initiating AIFF fallback pipeline for $TITLE.
 " >> "$LOG_FILE"
-    # MODIFIED: Added --no-playlist to ensure single-track focus
-    yt-dlp --ffmpeg-location "/opt/homebrew/bin/ffmpeg" --no-playlist \
+    yt-dlp --ffmpeg-location "$FFMPEG_BIN" --no-playlist \
       -f "bestaudio[ext=webm]" \
       --write-thumbnail \
       --convert-thumbnails jpg \
@@ -213,14 +212,14 @@ TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
     if [ $? -ne 0 ]; then
       echo "[ERROR] Fallback download failed for $TITLE.
 " >> "$LOG_FILE"
-      ERROR_SUMMARY+="\n[ERROR] No URLs have been detected. Could not proceed to download!"
+      ERROR_SUMMARY+="\n[ERROR] Fallback download failed for $TITLE!"
       return 1
     fi
     
     # Convert resulting wav file to AIFF with metadata/cover art
     WAV_FILE=$(find "$FALLBACK_DIR" -maxdepth 1 -name "*.wav" | head -n 1)
     JPG_FILE=$(find "$FALLBACK_DIR" -maxdepth 1 -name "*.jpg" | head -n 1)
-    /opt/homebrew/bin/ffmpeg -i "$WAV_FILE" -i "$JPG_FILE" \
+    "$FFMPEG_BIN" -i "$WAV_FILE" -i "$JPG_FILE" \
       -map 0:a -map 1:v \
       -c:a pcm_s16be \
       -c:v mjpeg \
@@ -233,7 +232,7 @@ TITLE=$(echo "$TITLE" | tr '|/\\:*?"<>' '_')
       echo "[ERROR] AIFF conversion failed for $TITLE.
 " >> "$LOG_FILE"
       rm -f "$WAV_FILE" "$JPG_FILE"
-      ERROR_SUMMARY+="\n[ERROR] No URLs have been detected. Could not proceed to download!"
+      ERROR_SUMMARY+="\n[ERROR] AIFF conversion failed for $TITLE!"
       return 1
     fi
     
